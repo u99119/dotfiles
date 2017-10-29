@@ -1,0 +1,13 @@
+#!/bin/bash
+
+alias camera-window='open -a "CameraWindow"'
+alias dpp-batch='open -a "Digital Photo Professional Batch"'
+alias dpp='open -a "Digital Photo Professional"'
+alias eos-utility='open -a "EOS Utility"'
+alias image-browser='open -a "ImageBrowser EX"'
+alias movie-uploader-for-youtube='open -a "Movie Uploader for YouTube"'
+alias photo-stitch-launcher='open -a "PhotoStitch Launcher"'
+alias picture-style-editor='open -a "PictureStyleEditor"'
+alias uploader-for-cig='open -a "UploaderForCiG"'
+alias periscope='/usr/local/thirdparty/periscope/trunk/periscope.py'
+alias ws='/Applications/Wireshark.app/Contents/MacOS/Wireshark'

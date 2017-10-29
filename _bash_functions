@@ -1,0 +1,46 @@
+#!/bin/bash
+
+function xee()
+{
+    open -a "Xee³" "$1"
+    osascript -e 'tell application "System Events" to keystroke "0" using command down'
+}
+
+function foomagick() {
+    rm -f ~/.foomagick.tmp
+    ls /Applications/ | grep "\.app" | egrep -v 'iWork|[(]' | while read APP; do
+        # clean it up                                                           
+        a=`echo $APP | sed s/\ //g`;
+        a=`echo $a | sed s/\'//g`;
+        echo alias ${a%.*}="'open -a \"${APP%.*}\"'" >> ~/.foomagick.tmp
+    done
+    source ~/.foomagick.tmp
+    #rm -f ~/.foomagick.tmp  
+}
+
+# ip to integer
+ip2dec () {
+    local a b c d ip=$@
+    IFS=. read -r a b c d <<< "$ip"
+    printf '%d\n' "$((a * 256 ** 3 + b * 256 ** 2 + c * 256 + d))"
+}
+
+# integer to ip
+dec2ip () {
+    local ip dec=$@
+    for e in {3..0}
+    do
+        ((octet = dec / (256 ** e) ))
+        ((dec -= octet * 256 ** e))
+        ip+=$delim$octet
+        delim=.
+    done
+    printf '%s\n' "$ip"
+}
+nosrt() { for i in *.{avi,mp4,mkv};  do s=${i:0:${#i}-4}; ls -l  "$s.srt" >/dev/null; done 2>&1| cut -d\: -f2; }
+
+chr() {
+    [ "$1" -lt 256 ] || return 1
+    printf "\\$(printf '%03o' "$1")"
+}
+ord() {   LC_CTYPE=C printf '%c %d\n' "$1 " "'$1"; }

@@ -1,0 +1,143 @@
+#!/bin/bash
+
+#---------- ALIASES ----------#
+alias c=clear
+alias l="ls -l"
+alias lf="ls -l|grep ^-"
+alias rm="rm -i"
+alias mv="mv -i"
+alias rm~="rm -f  *~"
+alias ..="cd .."
+alias d="l | grep ^d" 
+alias lc="l --color=none" 
+alias lsc="ls --color=none" 
+
+source $HOME/.bash_aliases
+
+#PS1="\u \w :> "
+#PS1="\u \w :> "
+
+##### Functions: BEGIN #####
+myprompt()
+{
+    local MAX=90
+# Regular Colors
+    local Black="\[\033[0;30m\]"
+    local Red="\[\033[0;31m\]"
+    local Green="\[\033[0;32m\]"
+    local Yellow="\[\033[0;33m\]"
+    local Blue="\[\033[0;34m\]"
+    local Purple="\[\033[0;35m\]"
+    local Cyan="\[\033[0;36m\]"
+    local White="\[\033[0;37m\]"
+
+# High Intensty
+    local Hi_Black="\[\033[0;90m\]"
+    local Hi_Red="\[\033[0;91m\]"
+    local Hi_Green="\[\033[0;92m\]"
+    local Hi_Yellow="\[\033[0;93m\]"
+    local Hi_Blue="\[\033[0;94m\]"
+    local Hi_Purple="\[\033[0;95m\]"
+    local Hi_Cyan="\[\033[0;96m\]"
+    local Hi_White="\[\033[0;97m\]"
+
+# Background
+    local B_Black="\[\033[40m\]"
+    local B_Red="\[\033[41m\]"
+    local B_Green="\[\033[42m\]"
+    local B_Yellow="\[\033[43m\]"
+    local B_Blue="\[\033[44m\]"
+    local B_Purple="\[\033[45m\]"
+    local B_Cyan="\[\033[46m\]"
+    local B_White="\[\033[47m\]"
+
+# High Intensty backgrounds
+    local HB_Black="\[\033[0;100m\]"
+    local HB_Red="\[\033[0;101m\]"
+    local HB_Green="\[\033[0;102m\]"
+    local HB_Yellow="\[\033[0;103m\]"
+    local HB_Blue="\[\033[0;104m\]"
+    local HB_Purple="\[\033[10;95m\]"
+    local HB_Cyan="\[\033[0;106m\]"
+    local HB_White="\[\033[0;107m\]"
+
+#Replace any leading leading 0; with 1; for bold colors
+#Replace any leading 0; with 4; to underline
+
+     local LIGHT_BLUE="\[\033[1;35m\]"
+     local CYAN="\[\033[0;36m\]"
+     local BLUE="\[\033[1;34m\]"
+     local WHITEB="\[\033[1;37m\]"
+     local WHITE="\[\033[0;37m\]"
+
+     local NO_COLOR="\[\033[0m\]"
+     local PROMPT_COLOR=$Green
+     if [ $(pwd | wc -c | tr -d ' ') -lt $MAX ]; then
+#        PS1="[$PROMPT_COLOR\u$NO_COLOR@\h \w]$PROMPT_COLOR\\$ $NO_COLOR \033]0;${PWD}\007"
+         PS1="[$Cyan\u$White@\h $Hi_Yellow\w]$NO_COLOR\\$ $NO_COLOR\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}"
+     else
+#        PS1="[\w]\n[$PROMPT_COLOR\u$NO_COLOR@\h]$PROMPT_COLOR\\$ $NO_COLOR \033]0;${PWD}\007"
+         PS1="[\w]\n[$Cyan\u$White@\h]$PROMPT_COLOR\\$ $NO_COLOR \033]0;${PWD}\007\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}"
+     fi
+}
+PROMPT_COMMAND="myprompt"
+
+#PS1='\[\e[0;36m\]\h:\[\e[1;37m\]\w:\[\e[1;34m\]\u`r=$?; test $r -ne 0 && echo " \[\e[1;31m\]ret:$r"`\[\e[m\]$ '
+
+source $HOME/.bash_functions
+foomagick
+##### Functions: END #####
+
+##### ENV VARIABLES: BEGIN #####
+export PATH=$PATH:.:$HOME/bin:$HOME/bin/ubin:$HOME/bin/imdb:$HOME/bin/apps
+export CLICOLOR=1
+export LSCOLORS=gxfxdxgxcxegedbxBxGxDx
+export PYTHONPATH=$HOME/bin/imdb/alberanid-imdbpy-398c01b96107/:/usr/local/lib/python2.7/site-packages/
+
+# don't put duplicate lines in the history. See bash(1) for more options
+# don't overwrite GNU Midnight Commander's setting of `ignorespace'.
+HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
+# ... or force ignoredups and ignorespace
+HISTCONTROL=ignoreboth:erasedups
+HISTIGNORE="pwd:l:ls:ls -l:ls -lrt:s dev75:s sim147"
+HISTSIZE=4000
+HISTFILESIZE=4100
+NOTEPATH=$HOME/c/cisco/books.faqs.notes/notes
+
+export LANG="en_US.UTF-8"
+export LC_COLLATE="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+export LC_MESSAGES="en_US.UTF-8"
+export LC_MONETARY="en_US.UTF-8"
+export LC_NUMERIC="en_US.UTF-8"
+export LC_TIME="en_US.UTF-8"
+export LC_ALL=
+##### ENV VARIABLES: END #####
+
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+fi
+
+##### ARCHIVED: #####
+#export LS_COLORS="no=00:fi=00:di=01;01:ln=00;36:pi=00;33:so=00;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:ex=00;32:*.cmd=00;32:*.exe=00;32:*.com=00;32:*.btm=00;32:*.bat=00;32:*.sh=00;32:*.csh=00;32:*.tar=00;31:*.tgz=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.zip=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.bz=00;31:*.tz=00;31:*.rpm=00;37:*.cpio=00;31:*.jpg=00;35:*.gif=00;35:*.bmp=00;35:*.xbm=00;35:*.xpm=00;35:*.png=00;35:*.tif=00;35:"
+##eval "`dircolors /Users/maysingh/.mydircolors`"
+
+
+##
+# Your previous /Users/maysingh/.bash_profile file was backed up as /Users/maysingh/.bash_profile.macports-saved_2014-09-07_at_20:06:56
+##
+
+# MacPorts Installer addition on 2014-09-07_at_20:06:56: adding an appropriate PATH variable for use with MacPorts.
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+# Finished adapting your PATH environment variable for use with MacPorts.
+
+export PATH="/usr/local/sbin:$PATH"
+
+# added by Anaconda2 4.2.0 installer
+#export PATH="/Users/maysingh/anaconda2/bin:$PATH"
+
+##For anaconda2/ML
+#    export PYTHONPATH=/Users/maysingh/anaconda2
+#    export PATH=/Users/maysingh/anaconda2/bin:$PATH 
+#    cd .../teaching-machines-master-7c3d52c5887b1f1c94972f4af83796fa2c62c794
+#    jupyter notebook
